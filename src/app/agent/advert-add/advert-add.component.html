@@ -1,0 +1,115 @@
+<main role="main">
+  <div class="container">
+    <div class="row">
+      <form
+        #advertAddForm="ngForm"
+        (ngSubmit)="addAdvert(advertAddForm)"
+        class=""
+      >
+        <h2 class="mt-3 pt-3">Yeni bir ilan ekle</h2>
+
+        <label>İlan Başlığı</label>
+        <div class="form-group">
+          <input
+            type="text"
+            #title="ngModel"
+            [(ngModel)]="model.title"
+            class="form-control"
+            name="title"
+            id="title"
+            required
+          />
+          <div *ngIf="title.invalid && title.dirty" class="help-block">
+            Başlık zorunludur
+          </div>
+        </div>
+
+        <label>Fiyat</label>
+        <div class="form-group">
+          <input
+            type="text"
+            #price="ngModel"
+            [(ngModel)]="model.price"
+            class="form-control"
+            name="price"
+            id="price"
+            required
+          />
+          <div *ngIf="price.invalid && price.dirty" class="help-block">
+            Fiyat zorunludur
+          </div>
+        </div>
+
+        <label>Mevki</label>
+        <div class="form-group">
+          <input
+            type="text"
+            #location="ngModel"
+            [(ngModel)]="model.location"
+            class="form-control"
+            name="location"
+            id="location"
+            required
+          />
+          <div *ngIf="location.invalid && location.dirty" class="help-block">
+            Mevki zorunludur
+          </div>
+        </div>
+
+        <label>İlan Tipi</label>
+        <div class="form-group">
+          <input
+            type="text"
+            #advertType="ngModel"
+            [(ngModel)]="model.advertType"
+            class="form-control"
+            name="advertType"
+            id="advertType"
+            required
+          />
+          <div
+            *ngIf="advertType.invalid && advertType.dirty"
+            class="help-block"
+          >
+            İlan Tipi zorunludur
+          </div>
+        </div>
+
+        <label>Isınma Tipi</label>
+        <div class="form-group">
+          <input
+            type="text"
+            #heating="ngModel"
+            [(ngModel)]="model.heating"
+            class="form-control"
+            name="heating"
+            id="heating"
+          />
+        </div>
+
+        <label>Oda Sayısı</label>
+        <div class="form-group">
+          <input
+            type="text"
+            #numberOfRooms="ngModel"
+            [(ngModel)]="model.numberOfRooms"
+            class="form-control"
+            name="numberOfRooms"
+            id="numberOfRooms"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-lg btn-primary btn-block"
+          [disabled]="!advertAddForm.valid"
+        >
+          Kaydet
+        </button>
+
+        <h6>{{ advertAddForm.value | json }}</h6>
+        <h6>{{ advertAddForm.status | json }}</h6>
+      </form>
+    </div>
+  </div>
+</main>

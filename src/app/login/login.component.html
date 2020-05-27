@@ -1,0 +1,22 @@
+<form
+  appearance="fill"
+  *ngIf="!isAuthenticated"
+  #loginForm="ngForm"
+  (ngSubmit)="login()"
+>
+  <input
+    name="userName"
+    [(ngModel)]="loginAgent.userName"
+    type="text"
+    placeholder="Kullanıcı Adı"
+    required
+  />
+  <input
+    name="password"
+    [(ngModel)]="loginAgent.password"
+    type="password"
+    placeholder="Şifre"
+    required
+  />
+  <button type="submit" [disabled]="!loginForm.valid">Giriş</button>
+</form>

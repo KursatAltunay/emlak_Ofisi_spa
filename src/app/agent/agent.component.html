@@ -1,0 +1,147 @@
+<div class="col-xl">
+  <div class="search-div">
+    <button class="btn btn-success" (click)="add()">Yeni İlan Ekle</button>
+    <mat-form-field class="search-form-field" floatLabel="never">
+      <input
+        matInput
+        [(ngModel)]="searchKey"
+        placeholder="Ara"
+        autocomplete="off"
+        (keyup)="applyFilter()"
+      />
+      <button
+        mat-button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        *ngIf="searchKey"
+        (click)="onSearchClear()"
+      ></button>
+    </mat-form-field>
+  </div>
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="listData" matSort>
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Başlık
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.title }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Fiyat
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.price }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="location">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Mevki
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.location }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="advertType">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          İlan Tipi
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.advertType }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="heating">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Isınma
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.heating }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="numberOfRooms">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Oda Sayısı
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.numberOfRooms }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="totalFloor">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Binadaki Kat Sayısı
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.totalFloor }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="placeFloor">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Bulunduğu Kat
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.placeFloor }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="isInHousingEstate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Site İçerisinde
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.isInHousingEstate }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="isFurnished">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Eşyalı
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.isFurnished }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="isInUse">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Kullanım Durumu
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.isInUse }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button class="btn btn-primary btn-sm" (click)="view(row)">
+            G
+          </button>
+          <button class="btn btn-warning btn-sm" (click)="edit(row)">D</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteAdvert(row)">Sil</button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6"
+          >loading data...</mat-footer-cell
+        >
+      </ng-container>
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">No data</mat-footer-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      <!-- <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{ hide: listData != null }"></mat-footer-row>
+      <mat-footer-row *matFooterRowDef="['noData']"
+        [ngClass]="{ hide: !(listData != null && listData.data.length == 0) }">
+      </mat-footer-row> -->
+    </mat-table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      [pageSize]="10"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>
