@@ -6,12 +6,16 @@ import {
 } from '@angular/common/http';
 import { Advert } from '../models/advert';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AgentService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private authService: AuthService
+  ) {}
 
   path = 'https://localhost:44393/api/agent';
   httpOptions = {
@@ -19,7 +23,9 @@ export class AgentService {
   };
 
   getAdverts(): Observable<Advert[]> {
-    return this.httpClient.get<Advert[]>(this.path + '?id=1');
+    return this.httpClient.get<Advert[]>(
+      this.path + '?id=' + this.authService.getCurrentUserId()
+    );
   }
 
   getAdvertById(advertId): Observable<Advert> {
@@ -35,6 +41,7 @@ export class AgentService {
         Authorization: 'Token',
       }),
     };
+    console.log(advert);
     this.httpClient
       .post(this.path + '/advertAdd', advert, httpOptions)
       .subscribe();

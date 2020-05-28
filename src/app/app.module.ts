@@ -23,42 +23,40 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { MustMatchDirective } from './helper/must-match.directive';
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      NavBarComponent,
-      AdminComponent,
-      AgentComponent,
-      AdvertDetailComponent,
-      AdvertAddComponent,
-      AgentAddComponent,
-      AdvertUpdateComponent,
-      RegisterComponent,
-      LoginComponent
-   ],
-   imports: [
-      BrowserModule,
-      AppRoutingModule,
-      HttpClientModule,
-      FormsModule,
-      ReactiveFormsModule,
-      BrowserAnimationsModule,
-      MatTableModule,
-      MatPaginatorModule,
-      MatSortModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatButtonModule,
-      MatIconModule,
-      MatDialogModule
-   ],
-   providers: [],
-   bootstrap: [
-      AppComponent
-   ],
-   entryComponents: [
-      AgentAddComponent
-   ]
+  declarations: [
+    AppComponent,
+    NavBarComponent,
+    AdminComponent,
+    AgentComponent,
+    AdvertDetailComponent,
+    AdvertAddComponent,
+    AgentAddComponent,
+    AdvertUpdateComponent,
+    RegisterComponent,
+    LoginComponent,
+    MustMatchDirective,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  entryComponents: [AgentAddComponent],
 })
 export class AppModule {}

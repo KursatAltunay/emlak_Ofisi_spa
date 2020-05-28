@@ -22,12 +22,14 @@ export class AuthService {
     this.httpClient
       .post(this.path + '/login', loginAgent, { headers: headers })
       .subscribe((data) => {
-        this.saveToken(data);
-        this.agentToken = data;
-        this.decodedToken = this.jwtHelper.decodeToken(data["token"].tostring());
+        let token = data['token'];
+        this.saveToken(token);
+        this.agentToken = token;
+        this.decodedToken = this.jwtHelper.decodeToken(token);
         console.log(this.getCurrentUserId());
+        console.log(this.getUsername);
         window.alert('Sisteme giriş yapıldı');
-        this.router.navigateByUrl('/agent');
+        // this.router.navigateByUrl('/agent');
       });
   }
 
@@ -35,7 +37,7 @@ export class AuthService {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     this.httpClient
-      .post(this.path + '/register', { headers: headers })
+      .post(this.path + '/register', registerAgent, { headers: headers })
       .subscribe((data) => {});
   }
 
@@ -46,6 +48,7 @@ export class AuthService {
   logOut() {
     localStorage.removeItem(this.TOKEN_KEY);
     window.alert('Sistemden çıkış yapıldı');
+    this.router.navigate(['/login']);
   }
 
   loggedIn() {
@@ -56,6 +59,9 @@ export class AuthService {
     return localStorage.getItem(this.TOKEN_KEY);
   }
   getCurrentUserId() {
-    return this.jwtHelper.decodeToken(this.token).nameId;
+    return +this.jwtHelper.decodeToken(this.token).nameid;
+  }
+  getUsername() {
+    return this.jwtHelper.decodeToken(this.token).unique_name;
   }
 }

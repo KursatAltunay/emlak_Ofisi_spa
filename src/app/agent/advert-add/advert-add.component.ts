@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Advert } from 'src/app/models/advert';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-advert-add',
@@ -17,7 +18,7 @@ import { Router } from '@angular/router';
   providers: [AgentService],
 })
 export class AdvertAddComponent implements OnInit {
-  constructor(private agentService: AgentService, private router: Router) {}
+  constructor(private agentService: AgentService, private router: Router, private authService:AuthService) {}
 
   model: Advert = new Advert();
 
@@ -32,7 +33,7 @@ export class AdvertAddComponent implements OnInit {
   ngOnInit() {}
 
   addAdvert(form: NgForm) {
-    this.model.agentId = 1; //burası auth ile düzenlenecek
+    this.model.agentId = this.authService.getCurrentUserId(); //burası auth ile düzenlenecek
     this.agentService.addAdvert(this.model);
     this.router.navigate(["/agent"])
   }

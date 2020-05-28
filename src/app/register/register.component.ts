@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { RegisterAgent } from '../models/registerAgent';
 
 @Component({
   selector: 'app-register',
@@ -13,35 +14,26 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {}
 
-  registerForm: FormGroup;
-  registerUser: any = {};
+  isAdmin: boolean = false;
+  id: number;
 
-  ngOnInit() {
-    this.createRegisterForm();
+  model: any = {};
+
+  ngOnInit() {}
+
+  register(form: NgForm) {
+    if ((this.isAdmin = true)) {
+      this.model.password = '123456';
+      this.model.confirmPassword = '123456';
+      this.authService.register(this.model);
+      
+    }
   }
 
-  createRegisterForm() {
-    this.registerForm = this.formBuilder.group(
-      {
-        userName: ['', Validators.required],
-        companyName: ['', Validators.required],
-        password: ['', Validators.required],
-        confirmPassword: ['', Validators.required],
-      },
-      { validator: this.passwordMatchValidator }
-    );
-  }
-
-  passwordMatchValidator(g: FormGroup) {
-    return g.get('password').value === g.get('confirmPassword').value
-      ? null
-      : { misMatch: true };
-  }
-
-  register() {
-    if (this.registerForm.valid) {
-      this.registerUser = Object.assign({}, this.registerForm.value);
-      this.authService.register(this.registerUser);
+  getAdmin() {
+    this.id = this.authService.getCurrentUserId();
+    if (this.id === 1) {
+      this.isAdmin == true;
     }
   }
 }
